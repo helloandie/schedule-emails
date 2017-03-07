@@ -18,7 +18,8 @@ public with sharing class sendSatisfactionSurvey {
             FROM Contact
             WHERE HasOptedOutOfEmail = FALSE
             AND Email != null
-            AND (ClientAdministrator__c = TRUE OR Benefits__c = TRUE OR HR__c = TRUE OR Key_Executive__c = TRUE OR Payroll__c = TRUE OR Owner__c = TRUE OR Risk__c = True)
+            AND (ClientAdministrator__c = TRUE OR Benefits__c = TRUE OR HR__c = TRUE 
+            OR Key_Executive__c = TRUE OR Payroll__c = TRUE OR Owner__c = TRUE OR Risk__c = True)
             AND Account.Status__c = 'Client'
             AND Account.NextCSATSent__c = THIS_MONTH]);
         
@@ -26,7 +27,8 @@ public with sharing class sendSatisfactionSurvey {
         Messaging.reserveSingleEmailCapacity(recipientList.size());
         //New single email message
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        //Use emailHelper to create an email for each contact in the list, add them to the list of single email messages
+        //Use emailHelper to create an email for each contact in the list, add them to the list of single email 
+        //messages
         for(Contact c:recipientList){
             mail = eHelper.createEmailFromTemplate(templateId, c.Id, replyTo, displayName);
             allMails.add(mail);
